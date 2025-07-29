@@ -1,1 +1,217 @@
+:root {
+    --primary-color: #0056b3; /* Dark blue */
+    --secondary-color: #e0f2f7; /* Light blue */
+    --accent-color: #28a745; /* Green for approved */
+    --blocked-color: #dc3545; /* Red for blocked */
+    --text-color: #333;
+    --border-radius: 8px;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+}
+
+header h2 {
+    margin: 5px 0 10px;
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+header p {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.curriculum-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.semester-column {
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px 15px;
+    flex: 1;
+    min-width: 250px; /* Adjust as needed */
+    max-width: 300px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.semester-column:hover {
+    transform: translateY(-5px);
+}
+
+.semester-column h3 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+.course-item {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+    text-align: center;
+    font-size: 0.95em;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.course-item:hover {
+    background-color: #e9e9e9;
+    transform: translateY(-2px);
+}
+
+/* Approved Course */
+.course-item.approved {
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: line-through;
+    border-color: var(--accent-color);
+    pointer-events: none; /* Make it unclickable once approved */
+    opacity: 0.8;
+}
+
+.course-item.approved:hover {
+    background-color: var(--accent-color); /* Keep the same on hover */
+    transform: none;
+}
+
+/* Blocked Course (visually distinct but still clickable to show message) */
+.course-item.blocked {
+    background-color: #ffebeb; /* Light red */
+    color: var(--blocked-color);
+    border-color: var(--blocked-color);
+    cursor: not-allowed;
+    position: relative;
+    overflow: hidden; /* To contain pseudo-element */
+}
+
+.course-item.blocked::before {
+    content: '🚫';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+.course-item.blocked:hover {
+    background-color: #ffdcdc; /* Slightly darker light red on hover */
+    transform: none;
+}
+
+
+/* Blocked Message */
+.blocked-message {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 2px solid var(--blocked-color);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    max-width: 400px;
+}
+
+.blocked-message p {
+    color: var(--blocked-color);
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.blocked-message button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.blocked-message button:hover {
+    background-color: #003d80;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .semester-column {
+        min-width: 220px;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 900px) {
+    .curriculum-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .semester-column {
+        width: 90%;
+        max-width: 400px; /* Limit width on smaller screens */
+    }
+}
+
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+    header h2 {
+        font-size: 1em;
+    }
+    .semester-column {
+        padding: 15px 10px;
+    }
+    .course-item {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    .blocked-message {
+        width: 90%;
+        padding: 15px;
+    }
+}
